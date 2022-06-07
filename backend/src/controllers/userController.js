@@ -21,6 +21,13 @@ const handleLogin = async (req,res) => {
     })
 }
 
+const handleSignup = async (req,res) => {
+    let message = await userService.signUpUser(req.body)
+    
+    return res.send('Sign up from server')
+}
+
 module.exports = {
-    handleLogin: handleLogin
+    handleLogin: handleLogin,
+    handleSignup: handleSignup
 }

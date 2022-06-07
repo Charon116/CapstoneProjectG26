@@ -5,6 +5,8 @@ import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import {handleLoginApi} from '../../services/userService';
+import { Link } from 'react-router-dom';
+import { path } from '../../utils';
 
 class Login extends Component {
     constructor(props) {
@@ -27,23 +29,6 @@ class Login extends Component {
             password: e.target.value
         })
     }
-    // handleLogin = async () => {
-    //     this.setState({
-    //         errMess: ''
-    //     })
-    //     try {
-    //         await handleLoginApi(this.state.username, this.state.password)
-    //     } catch (error) {
-    //         // if (error.response) {
-    //         //     if (error.response.data) {
-    //         //         this.setState({
-    //         //             errMess: error.response.data.message
-    //         //         })
-    //         //     }
-    //         // }
-    //         console.log('charon ',error);
-    //     }
-    // }
     handleLogin = async () => {
         this.setState({
             errMessage: ''
@@ -109,7 +94,9 @@ class Login extends Component {
                             <button className='btn-login' onClick={() => {this.handleLogin()}}>Login</button>
                         </div>
                         <div className='col-12 d-flex justify-content-between'>
-                            <span className='create-account'>Create account</span>
+                            <span className='create-account'>
+                                <Link to={path.SIGNUP}>Create account</Link>
+                            </span>
                             <span className='forgot-password'>Forgot your password</span>
                         </div>
                         
