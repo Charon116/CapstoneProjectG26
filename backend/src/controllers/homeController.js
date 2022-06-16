@@ -13,6 +13,14 @@ const postCRUD = async (req, res) => {
     return res.send('post crud from server')
 }
 
+let putCRUD = async (req, res) => {
+    let data = req.body;
+    let allUsers = await CRUDService.updateUserData(data);
+    return res.render('displayCRUD.ejs', {
+        dataTable: allUsers
+    })
+}
+
 
 module.exports = {
     getHomePage: getHomePage,

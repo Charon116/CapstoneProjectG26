@@ -1,4 +1,12 @@
 {
+    "home-header": {
+        "search": "Search",
+        "flag": "English"
+    },
+    "banner": {
+        "title1": "CONSULTATION FOUNDATION",
+        "title2": "HEALTH CARE AFTER COVID"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

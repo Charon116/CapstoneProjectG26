@@ -38,6 +38,9 @@ module.exports = {
       positionId: {
         type: Sequelize.STRING
       },
+      token: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

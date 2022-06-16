@@ -1,4 +1,12 @@
 {
+    "home-header": {
+        "search": "Tìm kiếm",
+        "flag": "Tiếng Việt"
+    },
+    "banner": {
+        "title1": "NỀN TẢNG TƯ VẤN",
+        "title2": "CHĂM SÓC SỨC KHOẺ SAU COVID"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",
@@ -30,9 +38,8 @@
             "header": "Hệ thống",
             "system-administrator": {
                 "header": "Quản trị hệ thống",
-                "user-manage": "Quản lý người sử dụng",
-                "product-manage": "Quản lý gói",
-                "register-package-group-or-account": "Đăng ký gói dịch vụ cho nhóm/tài khoản"
+                "user-manage": "Quản lý người sử dụng"
+                
             },
             "system-parameter": {
                 "header": "Tham số hệ thống"

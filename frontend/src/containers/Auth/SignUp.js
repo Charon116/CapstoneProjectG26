@@ -28,6 +28,15 @@ const validEmail = (value) => {
         );
     }
 };
+const validPhone = (value) => {
+    if(value && value.length !== 10){
+        return (
+            <div className="invalid-feedback d-block">
+                This is not a valid phone number.
+            </div>
+        );
+    }
+}
 
 const vpassword = (value) => {
 if (value.length < 6 || value.length > 40) {
@@ -39,7 +48,6 @@ if (value.length < 6 || value.length > 40) {
 }
 };
 
- 
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -52,6 +60,7 @@ export default class SignUp extends Component {
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
+        this.onChangeGender = this.onChangeGender.bind(this);
 
         this.state = {
             username: "",
@@ -61,6 +70,7 @@ export default class SignUp extends Component {
             lastName: "",
             phoneNumber: "",
             address: "",
+            gender: "",
             successful: false,
             message: '',
         };
@@ -102,6 +112,12 @@ export default class SignUp extends Component {
         });
     }
 
+    onChangeGender(e) {
+        this.setState({
+        gender: e.target.value
+        });
+    }
+
     onChangePassword(e) {
         this.setState({
         password: e.target.value
@@ -118,39 +134,20 @@ export default class SignUp extends Component {
 
         this.form.validateAll();
 
-        if (this.checkBtn.context._errors.length === 0) {
-            // try {
-            //     let data = await handleSignUpApi(this.state.email, this.state.password, this.state.firstName, this.state.lastName, this.state.phoneNumber, this.state.address);
-            //     if (data && data.errCode !== 0) {
-            //         this.setState({
-            //             errMessage: data.message
-            //         })
-            //     }
-            //     if (data && data.errCode === 0) {
-            //         console.log('Sign up success');
-            //     }
-            // } catch (e) {
-            //     if (e.response) {
-            //         if (e.response.data) {
-            //             this.setState({
-            //                 errMessage: e.response.data.message
-            //             })
-            //         }
-            //     }
-            //     console.log('error message', e.response);
-            // }
+        if (this.checkBtn.context._errors.length === 0) {           
             AuthService.register(
                 this.state.email,
                 this.state.password,
                 this.state.firstName,
                 this.state.lastName,
                 this.state.phoneNumber,
-                this.state.address
+                this.state.address,
+                this.state.gender
                 ).then(
                 response => {
                     this.setState({
-                        // message: response.data.message,
-                        // successful: true
+                        //message: response.data.message,
+                        successful: true
                     });
                 },
                 error => {
@@ -233,7 +230,7 @@ export default class SignUp extends Component {
                             name="phoneNumber"
                             value={this.state.phoneNumber}
                             onChange={this.onChangePhoneNumber}
-                            validations={[required]}
+                            validations={[required, validPhone]}
                         />
                         </div>
 
@@ -247,6 +244,21 @@ export default class SignUp extends Component {
                             onChange={this.onChangeAddress}
                             validations={[required]}
                         />
+                        </div>
+
+                        <div className="form-group mt-3">
+                        <label htmlFor="gender">Gender</label>
+                        <select
+                            className="form-control"
+                            name="gender"
+                            value={this.state.gender}
+                            onChange={this.onChangeGender}
+                            validations={[required]}
+                        >
+                            <option selected>Choose gender...</option>
+                            <option value={1}>Male</option>
+                            <option value={0}>Female</option>
+                        </select>
                         </div>
 
                         <div className="form-group mt-3">

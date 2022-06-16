@@ -37,7 +37,31 @@ let hashUserPassword = (password) => {
     })
 }
 
+let updateUserData = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id){
+                resolve({
+                    errCode: 2,
+                    errMessage: 'Missing required parameters'
+                })
+            }
+            let user = await db.User.findOne({
+                where: { id: data.id},
+                raw: false
+            })
+            if (user){
+                user.firstName = data.firstName;
+                user.lastName = data.lastName;
+            }
+        }catch{
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     createNewUser: createNewUser,
+    updateUserData: updateUserData
 }
 

@@ -21,7 +21,11 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "joi": "^17.6.0",
+    "joi-password-complexity": "^5.1.0",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.7.2",
+    "rand-token": "^1.0.1",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {

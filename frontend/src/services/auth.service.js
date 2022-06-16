@@ -1,8 +1,8 @@
 import axios from "../axios"
 
 class AuthService {
-    register(email, password, firstName, lastName, phoneNumber, address) {
-        return axios.post('/api/signup', {email, password, firstName, lastName, phoneNumber, address });
+    register(email, password, firstName, lastName, phoneNumber, address,gender) {
+        return axios.post('/api/signup', {email, password, firstName, lastName, phoneNumber, address, gender });
     }
 
     getCurrentUser() {

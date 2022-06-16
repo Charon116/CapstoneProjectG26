@@ -96,8 +96,9 @@ class Login extends Component {
                         <div className='col-12 d-flex justify-content-between'>
                             <span className='create-account'>
                                 <Link to={path.SIGNUP}>Create account</Link>
+
                             </span>
-                            <span className='forgot-password'>Forgot your password</span>
+                            <span className='forgot-password'><Link to={path.FORGETPASSWORD}>Forgot password</Link></span>
                         </div>
                         
                     </div>
