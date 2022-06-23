@@ -37,7 +37,6 @@ const validPhone = (value) => {
         );
     }
 }
-
 const vpassword = (value) => {
 if (value.length < 6 || value.length > 40) {
     return (
@@ -47,7 +46,6 @@ if (value.length < 6 || value.length > 40) {
     );
 }
 };
-
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -114,7 +112,7 @@ export default class SignUp extends Component {
 
     onChangeGender(e) {
         this.setState({
-        gender: e.target.value
+            gender: e.target.value
         });
     }
 
@@ -142,13 +140,14 @@ export default class SignUp extends Component {
                 this.state.lastName,
                 this.state.phoneNumber,
                 this.state.address,
-                this.state.gender
+                this.state.gender,
                 ).then(
                 response => {
                     this.setState({
                         //message: response.data.message,
                         successful: true
                     });
+                    console.log(response);
                 },
                 error => {
                     const resMessage =
@@ -159,8 +158,8 @@ export default class SignUp extends Component {
                     error.toString();
         
                     this.setState({
-                    successful: false,
-                    message: resMessage
+                        successful: false,
+                        message: resMessage
                     });
                 }
                 );
@@ -256,8 +255,9 @@ export default class SignUp extends Component {
                             validations={[required]}
                         >
                             <option selected>Choose gender...</option>
-                            <option value={1}>Male</option>
-                            <option value={0}>Female</option>
+                            <option value={'M'}>Male</option>
+                            <option value={'F'}>Female</option>
+                            <option value={'O'}>Other</option>
                         </select>
                         </div>
 

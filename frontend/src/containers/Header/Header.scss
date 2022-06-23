@@ -8,6 +8,29 @@
     color: $common-text-color;
     height: 40px;
     position: relative;
+
+    .welcome{
+        margin-right: 10px;
+    }
+
+    .language-vi{
+        cursor: pointer;
+        
+        &.active{
+            opacity: 1;
+            color: red;
+        }
+    }
+    .language-en{
+        cursor: pointer;
+        margin-left: 10px;
+        margin-right: 15px;
+        &.active{
+            opacity: 1;
+            color: blue;
+        }
+    }
+
     .btn-logout {
         color: $common-text-color;
         line-height: 40px;

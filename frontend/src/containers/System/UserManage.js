@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Route } from 'react';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserService, editUserService} from '../../services/userService';
+import { getAllUsers, deleteUserService, editUserService} from '../../services/userService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {emitter} from "../../utils/emitter";
-import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
+
 
 class UserManage extends Component {
     constructor(props){
@@ -58,9 +59,8 @@ class UserManage extends Component {
         }
     }
     
-    
     handleEditUser = (user) => {
-        console.log('check edit user', user);
+        //console.log('check edit user: ',user);
         this.setState({
             isOpenModalEditUser: true,
             userEdit: user
@@ -82,35 +82,32 @@ class UserManage extends Component {
             console.log(e)
         }
     }
+    
 
     render(){
         let arrUsers = this.state.arrUsers;
-        console.log(arrUsers)
         return (
             <div className= "users-container">
-                {/* <ModalUser
-                isOpen={this.state.isOpenModalUser}
-                toggleFormParent= {this.toggleUserModal}
-                createNewuser={this.createNewuser}
-                /> */}
-                <ModalEditUser
-                isOpen={this.state.isOpenModalEditUser}
-                toggleFromParent= {this.toggleUserEditModal}
-                currentUser = {this.state.userEdit}
-                editUser={this.doEditUser}
-                />
-                <div className='title text -center'>Manage users</div>
+                {
+                    this.state.isOpenModalEditUser && 
+                    <ModalEditUser
+                    isOpen={this.state.isOpenModalEditUser}
+                    toggleFromParent= {this.toggleUserEditModal}
+                    currentUser = {this.state.userEdit}
+                    editUser={this.doEditUser}
+                    />
+                }                
+                <div className='title text -center'><FormattedMessage id="manage-user.manage-users"/></div>
                 <div className="users-table mt-3 mx-1">
                     <table id="customers">
                         <tr>
-                            <th>Email</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Address</th>
-                            <th>Actions</th>
+                            <th><FormattedMessage id="manage-user.email"/></th>
+                            <th><FormattedMessage id="manage-user.firstName"/></th>
+                            <th><FormattedMessage id="manage-user.lastName"/></th>
+                            <th><FormattedMessage id="manage-user.address"/></th>
+                            <th><FormattedMessage id="manage-user.address"/></th>
                         </tr>
                         {arrUsers && arrUsers.map((item, index) =>{
-                            console.log('eric check map',item,index);
                             return(
                                 <tr key={index}>
                                     <td>{item.email}</td>
@@ -119,6 +116,7 @@ class UserManage extends Component {
                                     <td>{item.address}</td>
                                     <td>
                                         <button className="btn-edit" onClick={() => this.handleEditUser(item)}><i className="fas fa-pencil-alt"></i></button>
+                                    
                                         <button className="btn-delete" onClick= {() => this.handleDeleteUser(item) }><i className="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -126,6 +124,7 @@ class UserManage extends Component {
                         })}
                     </table>
                 </div>
+                
             </div>
         )
     }

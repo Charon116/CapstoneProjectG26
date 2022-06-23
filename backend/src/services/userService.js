@@ -8,7 +8,7 @@ let handleUserLogin = (email,password) => {
             let isExist = await checkUserEmail(email);
             if(isExist){
                 let user = await db.User.findOne({
-                    attributes: ['email','roleId','password'],                    
+                    attributes: ['email','roleId','password','firstName','lastName','gender','address','phoneNumber'],                    
                     where: {email: email},
                     raw: true
                 });
@@ -69,9 +69,11 @@ const signUpUser = async (data) => {
                 lastName: data.lastName,
                 address: data.address,
                 phoneNumber: data.phoneNumber,
-                gender: data.gender === '1' ? 'true' : 'false', 
+                gender: data.gender, 
+                roleId: 'R3',
             })
             resolve('Sign up success');
+            
         } catch (error) {
             reject(error)
         }
@@ -133,6 +135,12 @@ let updateUserData = (data)=>{
                 user.firstName= data.firstName,
                 user.lastName= data.lastName,
                 user.address= data.address;
+                user.gender = data.gender;
+                user.positionId = data.positionId;
+                user.roleId = data.roleId;
+                if(data.avatar){                        
+                    user.image = data.avatar;
+                }
                 await user.save();           
             resolve({
                 errCode: 0,

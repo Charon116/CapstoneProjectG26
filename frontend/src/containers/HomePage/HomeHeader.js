@@ -8,20 +8,26 @@ import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageApp } from '../../store/actions';
 import ReactCountryFlag from "react-country-flag";
+import { withRouter } from "react-router";
 
 class HomeHeader extends Component {
     changeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
     }
+
+    returnToHome = () => {
+        if (this.props.history){
+            this.props.history.push(`/home`)
+        }
+    }
     render() {
         let language = this.props.language;
-        console.log('check language', language)
         return (
             <React.Fragment>
                 <div className='home-header-container'>
                     <div className='home-header-content'>
                         <div className='left-content'>
-                            <img className='header-logo' src={logo} />
+                            <img className='header-logo' src={logo} onClick={() => this.returnToHome()} />
                         </div>
                         <div className='center-content'>                        
                             <div className='search'>
@@ -58,10 +64,12 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='home-header-banner'>
-                    <div className='title1'><FormattedMessage id="banner.title1"/></div>
-                    <div className='title2'><FormattedMessage id="banner.title2"/></div>
-                </div>
+                {this.props.isShowBanner === true &&
+                    <div className='home-header-banner'>
+                        <div className='title1'><FormattedMessage id="banner.title1"/></div>
+                        <div className='title2'><FormattedMessage id="banner.title2"/></div>
+                    </div>
+                }
             </React.Fragment>
         );
     }
@@ -71,6 +79,7 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.admin.isLoggedIn,
+        
         language: state.app.language,
     };
 };
@@ -81,4 +90,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
