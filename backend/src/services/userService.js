@@ -209,11 +209,13 @@ let getAllCodeService = (typeInput) => {
     })
 }
 
+
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     signUpUser: signUpUser,
     getAllUsers: getAllUsers,
     deleteUser: deleteUser,
     updateUserData: updateUserData,
-    getAllCodeService: getAllCodeService
+    getAllCodeService: getAllCodeService,
 }
