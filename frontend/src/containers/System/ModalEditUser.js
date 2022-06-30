@@ -5,9 +5,10 @@ import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import { emitter } from "../../utils/emitter";
 import _ from 'lodash';
 import {getAllCodeService} from "../../services/userService";
-import {LANGUAGES, CommonUtils} from "../../utils";
+import {LANGUAGES, CRUD_ACTIONS, CommonUtils} from "../../utils";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import * as actions from '../../store/actions';
 
 class ModalEditUser extends Component{
     constructor(props){
@@ -28,50 +29,26 @@ class ModalEditUser extends Component{
             genderArr: [],
             positionArr: [],
             roleArr: [],
+            action: '',
+            userEditId: ''
         }
     }
     
     async componentDidMount() {
-        try {
-            const resGender = await getAllCodeService('gender');
-            if(resGender && resGender.errCode === 0){
-                this.setState({
-                    genderArr: resGender.data,
-                    //gender: resGender && resGender.length > 0 ? resGender[0].key : '',
-                })
-            }
-            console.log('check res gender', resGender);
-        } catch (error) {
-            console.log(error);
-        }
-        try {
-            const resPosition = await getAllCodeService('position');
-            if(resPosition && resPosition.errCode === 0){
-                this.setState({
-                    positionArr: resPosition.data
-                })
-            }
-            console.log('check res position', resPosition);
-        } catch (error) {
-            console.log(error);
-        }
-        try {
-            const resRole = await getAllCodeService('role');
-            if(resRole && resRole.errCode === 0){
-                this.setState({
-                    roleArr: resRole.data
-                })
-            }
-            //console.log('check res role', res);
-        } catch (error) {
-            console.log(error);
-        }
+        this.props.getGenderStart();
+        this.props.getPositionStart();
+        this.props.getRoleStart();
+
+        let arrGenders = this.props.genderRedux;
+        let arrPositions = this.props.positionRedux;
+        let arrRoles = this.props.roleRedux;
+
         let user = this.props.currentUser;
         let imageBase64 = '';
         if(user.image){
             imageBase64 = new Buffer(user.image, 'base64').toString('binary');
         }
-        //console.log('check user', user);
+        
         if(user && !_.isEmpty(user)){
             this.setState({
                 id: user.id, 
@@ -80,9 +57,37 @@ class ModalEditUser extends Component{
                 firstName: user.firstName,
                 lastName: user.lastName,
                 address: user.address,
-                gender: user.genderArr,
+                
+                gender: user.gender,
+                positionId: arrPositions && arrPositions > 0 ? arrPositions[0].key : '',
+                roleId: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
+
                 previewImgURL: imageBase64,
-                avatar: ''
+                avatar: '',
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapShot) {
+        if(prevProps.genderRedux !== this.props.genderRedux){
+            let arrGenders = this.props.genderRedux;
+            this.setState({
+                genderArr: arrGenders,
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : ''
+            })
+        }
+        if(prevProps.positionRedux !== this.props.positionRedux){
+            let arrPositions = this.props.positionRedux;
+            this.setState({
+                positionArr: arrPositions,
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : ''
+            })
+        }
+        if(prevProps.roleRedux !== this.props.roleRedux){
+            let arrRoles = this.props.roleRedux; 
+            this.setState({
+                roleArr: arrRoles,
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
             })
         }
     }
@@ -142,12 +147,13 @@ class ModalEditUser extends Component{
 
     render(){
         let genders = this.state.genderArr;
-        console.log('genders', genders);
         let positions = this.state.positionArr;
-        //console.log('positions', positions);
         let roles = this.state.roleArr;
         let language = this.props.language;
 
+        let {gender, position, role} =this.state;
+
+        
         return(
             <Modal
                 isOpen= {this.props.isOpen}
@@ -202,8 +208,7 @@ class ModalEditUser extends Component{
                         </div>
                         <div className="input-container">
                             <label>Gender</label>
-                                <select
-                                onChange={(event) => {this.handleOnChangeInput(event , "gender")}} >
+                                <select className="form-control" value={gender} onChange={(event) => {this.handleOnChangeInput(event,'gender')}}>
                                     {genders && genders.length > 0 && genders.map((item,index) => {
                                         return(
                                             <option key={index}>
@@ -215,7 +220,7 @@ class ModalEditUser extends Component{
                         </div>
                         <div className="input-container">
                             <label>Position</label>
-                                <select onChange={(event) => {this.handleOnChangeInput(event , "position")}}>
+                                <select className="form-control" value={position} onChange={(event) => {this.handleOnChangeInput(event,'position')}}>
                                     {positions && positions.length > 0 && positions.map((item,index) => {
                                         return(
                                             <option key={index}>
@@ -228,7 +233,7 @@ class ModalEditUser extends Component{
                         </div>
                         <div className="input-container">
                             <label>Role</label>
-                                <select>
+                                <select className="form-control" value={role} onChange={(event) => {this.handleOnChangeInput(event,'role')}}>
                                     {roles && roles.length > 0 && roles.map((item,index) => {
                                         return(
                                             <option key={index}>
@@ -271,11 +276,18 @@ class ModalEditUser extends Component{
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        genderRedux: state.admin.genders,
+        roleRedux: state.admin.roles,
+        positionRedux: state.admin.positions
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
+        getRoleStart: () => dispatch(actions.fetchRoleStart()),
+        getPositionStart: () => dispatch(actions.fetchPositionStart())
     };
 };
 

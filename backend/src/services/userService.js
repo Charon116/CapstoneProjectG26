@@ -121,7 +121,7 @@ let getAllUsers = (userId) =>{
 let updateUserData = (data)=>{
     return new Promise(async(resolve, reject)=>{
         try{
-            if(!data.id){
+            if(!data.id || !data.roleId || !data.positionId || !data.gender){
                 resolve({
                     errCode: 2,
                     errMessage: ' Missing required parameters'

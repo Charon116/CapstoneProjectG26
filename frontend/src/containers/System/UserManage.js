@@ -83,7 +83,6 @@ class UserManage extends Component {
         }
     }
     
-
     render(){
         let arrUsers = this.state.arrUsers;
         return (
@@ -91,10 +90,10 @@ class UserManage extends Component {
                 {
                     this.state.isOpenModalEditUser && 
                     <ModalEditUser
-                    isOpen={this.state.isOpenModalEditUser}
-                    toggleFromParent= {this.toggleUserEditModal}
-                    currentUser = {this.state.userEdit}
-                    editUser={this.doEditUser}
+                        isOpen={this.state.isOpenModalEditUser}
+                        toggleFromParent= {this.toggleUserEditModal}
+                        currentUser = {this.state.userEdit}
+                        editUser={this.doEditUser}
                     />
                 }                
                 <div className='title text -center'><FormattedMessage id="manage-user.manage-users"/></div>

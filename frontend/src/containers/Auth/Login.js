@@ -62,8 +62,7 @@ class Login extends Component {
     }
 
     handleKeyDown = (e) => {
-        if(e.key === 'Enter' || e.keyCode === 13){
-            this.handleLogin();
+        if(e.key === 'Enter' || e.keyCode === 13){ this.handleLogin();
         }
     }
 
