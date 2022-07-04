@@ -6,6 +6,8 @@ import specialtyController from '../controllers/specialtyController';
 import patientController from "../controllers/patientController";
 import verifySignUp from "../middleware/verifySignUp";
 import passwordReset from "../controllers/passwordReset";
+import clinicController from '../controllers/clinicController'
+
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -39,6 +41,10 @@ let initWebRoutes = (app) => {
 
     router.get('/api/search-doctor', doctorController.searchDoctor);
     router.get('/api/get-detail-specialty-by-id', specialtyController.getDetailSpecialtyById);
+    router.get('/api/get-list-patient-for-doctor', doctorController.getListPatientForDoctor);
+    router.post('/api/send-remedy', doctorController.sendRemedy);
+
+    router.post('/api/create-new-clinic',clinicController.createClinic);
     // router.post('/reset-password-email', userController.passwordReset);
     // router.post('/update-password',userController.updatePassword)
 

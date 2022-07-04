@@ -21,6 +21,14 @@ export const adminMenu = [
             },
         ]
     },
+    { //quản lý phòng khám
+        name: 'menu.admin.clinic',
+        menus: [
+            {
+                name: 'menu.admin.manage-clinic', link: '/system/manage-clinic'
+            },
+        ]
+    },
     { //quản lý cẩm nang
         name: 'menu.admin.handbook',
         menus: [
@@ -38,6 +46,10 @@ export const doctorMenu = [
             //quản lý kế hoạch khám bệnh của bác sĩ
             {
                 name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
+            },
+            //quản lý bệnh nhân khám bệnh của bác sĩ
+            {
+                name: 'menu.doctor.manage-patient', link: '/doctor/manage-patient'
             },
         ]
     }

@@ -14,13 +14,16 @@
             "manage-user": "Manage user",
             "manage-doctor": "Manage doctor",
             "manage-specialty": "Manage specialty",
+            "manage-clinic": "Manage clinic",
             "specialty": "Specialty",
+            "clinic": "Clinic",
             "handbook": "Handbook",
             "manage-handbook": "Manage handbook",
             "welcome" : "Welcome"
         },
         "doctor":{
-            "manage-schedule":"Manage Doctor's schedule"
+            "manage-schedule":"Manage Doctor's schedule",
+            "manage-patient":"Manage Doctor's patient"
         }
     },
     "manage-user": {

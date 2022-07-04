@@ -69,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "react-loading-overlay": "^1.0.1",
     "react-validation": "^3.0.7",
     "validator": "^13.7.0"
   }
